@@ -21,7 +21,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> registerAccount(Principal userData,
+    public ResponseEntity<?> createTransaction(Principal userData,
                                              @RequestBody CreateTransactionRequestDTO data) {
         try {
             this.transactionService.createTransaction(userData.getName(), data);

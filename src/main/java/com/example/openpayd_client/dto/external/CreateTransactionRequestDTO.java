@@ -15,6 +15,9 @@ public class CreateTransactionRequestDTO {
 
     private BeneficiaryDTO beneficiary;
 
+    public CreateTransactionRequestDTO() {
+    }
+
     public CreateTransactionRequestDTO(BigDecimal amount, String accountId, String reference,
                                        String bankAccountCountry, String iban, String firstName, String lastName) {
         this.amount = new CurrencyAmountDTO(amount);
@@ -59,12 +62,15 @@ public class CreateTransactionRequestDTO {
         this.beneficiary = beneficiary;
     }
 
-    static class BeneficiaryDTO {
+    public static class BeneficiaryDTO {
         private String bankAccountCountry;
         private String iban;
         private final String customerType = "RETAIL";
         private String firstName;
         private String lastName;
+
+        public BeneficiaryDTO() {
+        }
 
         public BeneficiaryDTO(String bankAccountCountry, String iban, String firstName, String lastName) {
             this.bankAccountCountry = bankAccountCountry;

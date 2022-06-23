@@ -2,7 +2,7 @@ package com.example.openpayd_client.service.internal;
 
 import com.example.openpayd_client.client.OpenpaydFeignClient;
 import com.example.openpayd_client.dto.external.CreateTransactionRequestDTO;
-import com.example.openpayd_client.dto.external.CreateTransactionResponseDTO;
+import com.example.openpayd_client.dto.external.TransactionResponseDTO;
 import com.example.openpayd_client.enumeration.ErrorCode;
 import com.example.openpayd_client.exception.HttpResponseException;
 import com.example.openpayd_client.model.TransactionModel;
@@ -36,10 +36,11 @@ public class TransactionServiceImpl implements TransactionService {
         if (user.isEmpty()) throw new HttpResponseException(ErrorCode.UNAUTHORIZED);
         final UserModel userModel = user.get();
 
-        CreateTransactionResponseDTO transaction = this.openpaydClient.createTransaction(id, data);
-        //todo get the status from here https://apidocs.openpayd.com/reference/get-transaction-by-id
+        data.setAccountId(userModel.getAccountId());
+
+        TransactionResponseDTO transaction = this.openpaydClient.createTransaction(userModel.getHolderId(), data);
         TransactionModel transactionModel = new TransactionModel(transaction.getTransactionId(), data.getAmount().getValue(),
-                userModel, "CREATED");
+                userModel, transaction.getStatus());
         this.transactionRepository.save(transactionModel);
     }
 }

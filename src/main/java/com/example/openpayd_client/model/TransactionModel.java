@@ -1,18 +1,9 @@
 package com.example.openpayd_client.model;
 
-import com.example.openpayd_client.dto.external.CreateTransactionResponseDTO;
-import com.example.openpayd_client.util.Encoder;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.example.openpayd_client.enumeration.TransactionStatus;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 
 @Entity
 @Table
@@ -32,12 +23,13 @@ public class TransactionModel {
     private UserModel user;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.ORDINAL)
+    private TransactionStatus status;
 
     public TransactionModel() {
     }
 
-    public TransactionModel(String transactionId, BigDecimal amount, UserModel user, String status) {
+    public TransactionModel(String transactionId, BigDecimal amount, UserModel user, TransactionStatus status) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.user = user;
@@ -76,11 +68,11 @@ public class TransactionModel {
         this.user = user;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
 }

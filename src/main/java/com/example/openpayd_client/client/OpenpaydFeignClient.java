@@ -36,6 +36,12 @@ public interface OpenpaydFeignClient {
     @RequestMapping(method = RequestMethod.POST,
             value = "/transactions/beneficiaryPayout",
             consumes = "application/json")
-    CreateTransactionResponseDTO createTransaction(@RequestHeader(ACCOUNT_HOLDER_ID_KEY) String holderId,
-                                            CreateTransactionRequestDTO body);
+    TransactionResponseDTO createTransaction(@RequestHeader(ACCOUNT_HOLDER_ID_KEY) String holderId,
+                                             CreateTransactionRequestDTO body);
+
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/transactions/payout/{id}",
+            consumes = "application/json")
+    TransactionResponseDTO getTransactionStatus(@RequestHeader(ACCOUNT_HOLDER_ID_KEY) String holderId,
+                                                @PathVariable("id") String id);
 }
