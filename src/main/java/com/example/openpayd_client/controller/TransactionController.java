@@ -1,7 +1,6 @@
 package com.example.openpayd_client.controller;
 
 import com.example.openpayd_client.dto.external.CreateTransactionRequestDTO;
-import com.example.openpayd_client.dto.external.RegisterUserDataRequestDTO;
 import com.example.openpayd_client.exception.HttpResponseException;
 import com.example.openpayd_client.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +28,16 @@ public class TransactionController {
             return e.getResponse();
         }
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<?> listTransactions(Principal userData,
+                                              @RequestParam(required = false, defaultValue = "0") int page,
+                                              @RequestParam(required = false, defaultValue = "10") int pageAmount) {
+        try {
+            return ResponseEntity.ok(this.transactionService.listTransactions(userData.getName(), page, pageAmount));
+        } catch (HttpResponseException e) {
+            return e.getResponse();
+        }
     }
 }

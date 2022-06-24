@@ -1,6 +1,5 @@
 package com.example.openpayd_client.config;
 
-import com.example.openpayd_client.service.UserService;
 import com.example.openpayd_client.service.internal.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/h2-console/**");
+        web.ignoring().antMatchers("/h2-console/**")
+                .and().ignoring().antMatchers("/openpayd-webhook")
+                .and().ignoring().antMatchers("/swagger-ui")
+                .and().ignoring().antMatchers("/swagger-ui/**");
     }
 
     @Override

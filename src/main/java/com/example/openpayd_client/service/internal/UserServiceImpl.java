@@ -2,7 +2,6 @@ package com.example.openpayd_client.service.internal;
 
 import com.example.openpayd_client.auth.UserData;
 import com.example.openpayd_client.client.OpenpaydFeignClient;
-import com.example.openpayd_client.dto.AddressDTO;
 import com.example.openpayd_client.dto.CurrencyAmountDTO;
 import com.example.openpayd_client.dto.external.*;
 import com.example.openpayd_client.enumeration.ErrorCode;
@@ -15,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -55,10 +53,10 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) throw new HttpResponseException(ErrorCode.UNAUTHORIZED);
         UserModel userModel = user.get();
 
-//        GetAccountResponseDTO account = this.openpaydClient.getAccount(userModel.getHolderId(), userModel.getAccountId());
-//        return account.getActualBalance();
+        GetAccountResponseDTO account = this.openpaydClient.getAccount(userModel.getHolderId(), userModel.getAccountId());
+        return account.getActualBalance();
 
-        return new CurrencyAmountDTO(userModel.getBalance());
+//        return new CurrencyAmountDTO(userModel.getBalance());
     }
 
     private String createLinkedClient(RegisterUserDataRequestDTO individualDTO){

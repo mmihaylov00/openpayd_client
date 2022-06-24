@@ -1,9 +1,11 @@
 package com.example.openpayd_client.model;
 
 import com.example.openpayd_client.enumeration.TransactionStatus;
+import com.example.openpayd_client.enumeration.TransactionType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table
@@ -26,14 +28,23 @@ public class TransactionModel {
     @Enumerated(EnumType.ORDINAL)
     private TransactionStatus status;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt = new Date();
+
+
+    @Column
+    @Enumerated(EnumType.ORDINAL)
+    private TransactionType type;
+
     public TransactionModel() {
     }
 
-    public TransactionModel(String transactionId, BigDecimal amount, UserModel user, TransactionStatus status) {
+    public TransactionModel(String transactionId, BigDecimal amount, UserModel user, TransactionStatus status, TransactionType type) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.user = user;
         this.status = status;
+        this.type = type;
     }
 
     public Long getId() {
@@ -74,5 +85,21 @@ public class TransactionModel {
 
     public void setStatus(TransactionStatus status) {
         this.status = status;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
     }
 }

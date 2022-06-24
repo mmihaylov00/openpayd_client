@@ -10,4 +10,5 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends CrudRepository<UserModel, UUID> {
     Optional<UserModel> findFirstByEmail(String email);
+    Optional<UserModel> findFirstByHolderId(String id);
 }

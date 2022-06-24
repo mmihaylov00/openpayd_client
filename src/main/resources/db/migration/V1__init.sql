@@ -8,7 +8,9 @@ CREATE TABLE transaction_model
     transaction_id VARCHAR(255) NOT NULL,
     amount         DECIMAL      NOT NULL,
     user_id        UUID         NOT NULL,
-    status         VARCHAR(255),
+    status         INT,
+    created_at     TIMESTAMP,
+    type           INT,
     CONSTRAINT pk_transactionmodel PRIMARY KEY (id)
 );
 

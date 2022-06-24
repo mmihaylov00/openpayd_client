@@ -33,7 +33,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .paths(Predicate.not(regex(".*%s/error".formatted(apiUrl))))
+                .paths(Predicate.not(regex(".*" + apiUrl +"/error")))
                 .build()
                 .ignoredParameterTypes(ApiIgnore.class)
                 .enableUrlTemplating(true);

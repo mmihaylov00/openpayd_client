@@ -4,7 +4,6 @@ import com.example.openpayd_client.client.OpenpaydFeignClient;
 import com.example.openpayd_client.dto.external.TransactionResponseDTO;
 import com.example.openpayd_client.model.TransactionModel;
 import com.example.openpayd_client.repository.TransactionRepository;
-import com.example.openpayd_client.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Configuration
 @EnableScheduling
@@ -29,7 +27,7 @@ public class TransactionStatusJob {
         this.openpaydClient = openpaydClient;
     }
 
-    @Scheduled(fixedRate = 30_000)
+    @Scheduled(fixedRate = 120_000)
     public void updateTransactions() {
         this.logger.info("CHECKING STATUSES...");
         Set<TransactionModel> allWaitingTransactions = this.transactionRepository.findAllWaiting();
